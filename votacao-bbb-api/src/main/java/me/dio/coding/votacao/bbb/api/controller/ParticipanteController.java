@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import me.dio.coding.votacao.bbb.api.model.ParticipanteModel;
 import me.dio.coding.votacao.bbb.api.repository.ParticipanteRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/participantes")
 @AllArgsConstructor
+@CrossOrigin
 public class ParticipanteController {
 
     private final ParticipanteRepository repository;
@@ -29,5 +31,11 @@ public class ParticipanteController {
         }
 
         return ResponseEntity.ok(opt.get());
+    }
+    
+    @GetMapping("/todos")
+    public ResponseEntity<List<ParticipanteModel>> todos() {
+        List<ParticipanteModel> list = repository.findAll();
+        return ResponseEntity.ok(list);
     }
 }
